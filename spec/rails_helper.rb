@@ -7,6 +7,7 @@ require 'rspec/rails'
 
 # carregue todos os arquivos da pasta suporte
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec', 'shared_examples', '**', '*.rb')].each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
