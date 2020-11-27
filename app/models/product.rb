@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  include NameSearchable
+  include Paginatable
+
   belongs_to :productable, polymorphic: true
   validates :name, :description, :price, :image, presence: true
   validates :name, uniqueness: { case_sensitive: false }

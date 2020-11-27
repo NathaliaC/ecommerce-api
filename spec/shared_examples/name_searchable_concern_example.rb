@@ -1,4 +1,4 @@
-shared_examples 'name searcheable concern' do |factory_name|
+shared_examples 'name searchable concern' do |factory_name|
   let!(:search_params) { 'Example' }
   let!(:records_to_find) do
     (0..3).to_a.map { |index| create(factory_name, name: "Example #{index}") }

@@ -1,4 +1,4 @@
-module NameSearcheable
+module NameSearchable
   extend ActiveSupport::Concern
 
   included do
