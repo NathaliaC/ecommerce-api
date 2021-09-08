@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# um computador para executar um game precisa ter uma
+# configuracao minima de sistema
 class SystemRequirement < ApplicationRecord
   include NameSearchable
   include Paginatable

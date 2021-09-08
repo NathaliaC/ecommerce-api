@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# a loja vende produtos e as informacoes desses produtos
+# seram armazenadas nesse modelo
 class Product < ApplicationRecord
   include NameSearchable
   include Paginatable

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Quando uma compra e feita na loja e gerado
+# um cupom associado ao produto
 class Coupon < ApplicationRecord
   include Paginatable
 

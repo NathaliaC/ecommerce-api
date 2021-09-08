@@ -1,45 +1,50 @@
-module Admin::V1
-  class CategoriesController < ApiController
-    before_action :load_category, only: %i[update destroy]
+# frozen_string_literal: true
 
-    def index
-      @categories = Category.all
-    end
+module Admin
+  module V1
+    # controlador de categoria
+    class CategoriesController < ApiController
+      before_action :load_category, only: %i[update destroy]
 
-    def create
-      @category = Category.new
-      @category.attributes = category_params
-      save_category!
-    end
+      def index
+        @categories = Category.all
+      end
 
-    def update
-      @category.attributes = category_params
-      save_category!
-    end
+      def create
+        @category = Category.new
+        @category.attributes = category_params
+        save_category!
+      end
 
-    def destroy
-      @category.destroy
-    rescue
-      render_error(fields: @category.errors.messages)
-    end
+      def update
+        @category.attributes = category_params
+        save_category!
+      end
 
-    private
+      def destroy
+        @category.destroy
+      rescue
+        render_error(fields: @category.errors.messages)
+      end
 
-    def category_params
-      return {} unless params.key?(:category)
+      private
 
-      params.require(:category).permit(:id, :name)
-    end
+      def category_params
+        return {} unless params.key?(:category)
 
-    def save_category!
-      @category.save!
-      render :show
-    rescue
-      render_error(fields: @category.errors.messages)
-    end
+        params.require(:category).permit(:id, :name)
+      end
 
-    def load_category
-      @category = Category.find(params[:id])
+      def save_category!
+        @category.save!
+        render :show
+      rescue
+        render_error(fields: @category.errors.messages)
+      end
+
+      def load_category
+        @category = Category.find(params[:id])
+      end
     end
   end
 end

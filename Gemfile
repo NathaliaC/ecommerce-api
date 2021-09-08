@@ -11,6 +11,7 @@ gem 'inky-rb', require: 'inky'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'premailer-rails'
 gem 'puma', '~> 4.1'
+gem 'rubocop', require: false
 gem 'sass-rails'
 
 # Auth
@@ -23,7 +24,7 @@ gem 'rack-cors', '~> 1.1.1'
 gem 'jbuilder', '~> 2.10.1'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry', '~> 0.13.1'
@@ -33,8 +34,9 @@ end
 
 group :development do
   gem 'listen', '~> 3.2'
+  gem 'rails-erd'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
