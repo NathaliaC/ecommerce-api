@@ -5,5 +5,6 @@ FactoryBot.define do
     password { '123456' }
     password_confirmation { '123456' }
     profile { :admin }
+    #profile { %i(admin client).sample }
   end
 end

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# aqui ficaram armazenadas as informacoes dos usuarios
+# que iram utilizar o sistema
 class User < ActiveRecord::Base
   include NameSearchable
   include Paginatable
