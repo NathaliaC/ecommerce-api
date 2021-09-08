@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequestAPI
   def body_json(symbolize_keys: false)
     json = JSON.parse(response.body)
