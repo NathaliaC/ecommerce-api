@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -21,6 +23,7 @@ gem 'devise_token_auth', '~> 1.1.4'
 gem 'rack-cors', '~> 1.1.1'
 
 # Rendering
+gem 'active_model_serializers', '~> 0.10.0'
 gem 'jbuilder', '~> 2.10.1'
 
 group :development, :test do
