@@ -2,7 +2,7 @@
 
 module Admin
   module V1
-    module CategoriesHelper
+    module SystemRequirementsHelper
     end
   end
 end

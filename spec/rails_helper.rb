@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -6,8 +8,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 
 # carregue todos os arquivos da pasta suporte
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
-Dir[Rails.root.join('spec', 'shared_examples', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'shared_examples', '**', '*.rb')].sort.each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

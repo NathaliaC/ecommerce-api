@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSystemRequirements < ActiveRecord::Migration[6.0]
   def change
     create_table :system_requirements do |t|
