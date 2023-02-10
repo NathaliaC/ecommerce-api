@@ -26,7 +26,7 @@ RSpec.describe 'Admin::V1::Categories without authentication', type: :request do
     include_examples 'unauthenticated access'
   end
 
-  context 'DELETE /categories' do
+  context 'DELETE /categories/:id' do
     let!(:category) { create(:category) }
     let(:url) { "/admin/v1/categories/#{category.id}" }
     before(:each) { delete url }

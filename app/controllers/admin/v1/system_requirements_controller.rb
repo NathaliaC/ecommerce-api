@@ -3,6 +3,8 @@
 module Admin
   module V1
     class SystemRequirementsController < ApiController
+      before_action :load_system_requirement, only: %i[update destroy]
+
       def index
         @system_requirements = SystemRequirement.all
       end
@@ -13,9 +15,13 @@ module Admin
         save_system_requirement!
       end
 
-      def save_system_requirement!
-        @system_requirement.save!
-        render :show
+      def update
+        @system_requirement.attributes = system_requirement_params
+        save_system_requirement!
+      end
+
+      def destroy
+        @system_requirement.destroy!
       rescue StandardError
         render_error(fields: @system_requirement.errors.messages)
       end
@@ -29,6 +35,17 @@ module Admin
           :id, :name, :operational_system, :storage,
           :processor, :memory, :video_board
         )
+      end
+
+      def save_system_requirement!
+        @system_requirement.save!
+        render :show
+      rescue StandardError
+        render_error(fields: @system_requirement.errors.messages)
+      end
+
+      def load_system_requirement
+        @system_requirement = SystemRequirement.find(params[:id])
       end
     end
   end

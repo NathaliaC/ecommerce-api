@@ -22,7 +22,7 @@ module Admin
       end
 
       def destroy
-        @category.destroy
+        @category.destroy!
       rescue StandardError
         render_error(fields: @category.errors.messages)
       end

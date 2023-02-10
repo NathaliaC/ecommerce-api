@@ -8,6 +8,7 @@ AllCops:
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
     - 'bin/bundle'
+    - 'bin/setup'
   NewCops: disable
   SuggestExtensions: false
 
@@ -18,4 +19,4 @@ Style/AsciiComments:
   Enabled: false
 
 Metrics/BlockLength:
-  IgnoredMethods: ['describe', 'context', 'shared_examples']
+  AllowedPatterns: ['describe', 'context', 'shared_examples']

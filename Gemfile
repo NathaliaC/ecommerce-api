@@ -15,7 +15,7 @@ gem 'premailer-rails'
 gem 'puma', '~> 4.1'
 gem 'rubocop', require: false
 gem 'sass-rails'
-gem "sprockets-rails"
+gem 'sprockets-rails'
 
 # Auth
 gem 'devise_token_auth', '~> 1.2', '>= 1.2.1'
