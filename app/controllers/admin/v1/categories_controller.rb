@@ -22,8 +22,8 @@ module Admin
       end
 
       def destroy
-        @category.destroy
-      rescue
+        @category.destroy!
+      rescue StandardError
         render_error(fields: @category.errors.messages)
       end
 
@@ -38,7 +38,7 @@ module Admin
       def save_category!
         @category.save!
         render :show
-      rescue
+      rescue StandardError
         render_error(fields: @category.errors.messages)
       end
 

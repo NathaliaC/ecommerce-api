@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples 'name searchable concern' do |factory_name|
   let!(:search_params) { 'Example' }
   let!(:records_to_find) do

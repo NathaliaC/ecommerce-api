@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples 'paginatable concern' do |factory_name|
   context 'when records fits page size' do
     let!(:records) { create_list(factory_name, 20) }
