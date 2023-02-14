@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin::V1::Couponss as :client', type: :request do
+RSpec.describe 'Admin::V1::Coupons as :client', type: :request do
   let(:user) { create(:user, profile: :client) }
 
   context 'GET /coupons' do
