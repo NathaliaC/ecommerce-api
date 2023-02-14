@@ -120,14 +120,13 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
           due_date: nil
         ) }
       end
-      fake_code = Faker::Commerce.unique.promotion_code(digits: 4)
+      let(:fake_code) { Faker::Commerce.unique.promotion_code(digits: 4) }
       let(:coupon_new) { create(:coupon, code: fake_code) }
       let(:do_request) do
         patch url, headers: auth_header(user), params: coupon_invalid_params.to_json
       end
 
       it 'does not update Coupon' do
-        coupon = create(:coupon)
         old_attributes = coupon.attributes
         do_request
         coupon.reload
