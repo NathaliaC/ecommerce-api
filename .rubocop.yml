@@ -20,3 +20,14 @@ Style/AsciiComments:
 
 Metrics/BlockLength:
   AllowedPatterns: ['describe', 'context', 'shared_examples']
+
+Lint/RaiseException:
+  Enabled: false
+Lint/StructNewOverride:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: false
+Style/HashTransformKeys:
+  Enabled: false
+Style/HashTransformValues:
+  Enabled: false

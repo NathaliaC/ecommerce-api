@@ -34,6 +34,7 @@ group :development, :test do
   gem 'pry', '~> 0.14.2'
   gem 'rspec-rails', '~> 4.0.1'
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'letter_opener_web'
 end
 
 group :development do

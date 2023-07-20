@@ -121,6 +121,15 @@ GEM
       activesupport (>= 5.0.0)
     json (2.6.3)
     jsonapi-renderer (0.2.2)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
+    letter_opener_web (2.0.0)
+      actionmailer (>= 5.2)
+      letter_opener (~> 1.7)
+      railties (>= 5.2)
+      rexml
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -297,6 +306,7 @@ DEPENDENCIES
   faker
   inky-rb
   jbuilder (~> 2.10.1)
+  letter_opener_web
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
   premailer-rails
@@ -318,4 +328,4 @@ RUBY VERSION
    ruby 3.2.0p0
 
 BUNDLED WITH
-   2.1.4
+   2.4.17
