@@ -9,7 +9,7 @@ module Paginatable
   included do
     scope :paginate, lambda { |page, length|
       page = page.present? && page.positive? ? page : DEFAULT_PAGE
-      length = length.present? && page.positive? ? length : MAX_PER_PAGE
+      length = length.present? && length.positive? ? length : MAX_PER_PAGE
       starts_at = (page - 1) * length
       limit(length).offset(starts_at)
     }
