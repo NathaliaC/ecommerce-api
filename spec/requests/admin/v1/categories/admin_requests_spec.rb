@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
+RSpec.describe 'Admin V1 Categories as :admin', type: :request do
   let(:user) { create(:user) }
 
   context 'GET /categories' do
@@ -25,6 +25,10 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
         get url, headers: auth_header(user)
         expect(response).to have_http_status(:ok)
       end
+
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 1 } do
+        before { get url, headers: auth_header(user) }
+      end
     end
 
     context 'with search[name] param' do
@@ -42,6 +46,15 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
           category.as_json(only: %i[id name])
         end
         expect(body_json['categories']).to contain_exactly(*expected_categories)
+      end
+
+      it 'returns success status' do
+        get url, headers: auth_header(user), params: search_params
+        expect(response).to have_http_status(:ok)
+      end
+
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 2 } do
+        before { get url, headers: auth_header(user), params: search_params }
       end
     end
 
@@ -62,9 +75,13 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
         expect(body_json['categories']).to contain_exactly(*expected_categories)
       end
 
-      it 'returns sucess status' do
+      it 'returns success status' do
         get url, headers: auth_header(user), params: pagination_params
         expect(response).to have_http_status(:ok)
+      end
+
+      it_behaves_like 'pagination meta attributes', { page: 2, length: 5, total_pages: 2 } do
+        before { get url, headers: auth_header(user), params: pagination_params }
       end
     end
 
@@ -82,22 +99,10 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
         get url, headers: auth_header(user), params: order_params
         expect(response).to have_http_status(:ok)
       end
-    end
-  end
 
-  context 'GET /categories/:id' do
-    let(:category) { create(:category) }
-    let(:url) { "/admin/v1/categories/#{category.id}" }
-
-    it 'returns requested Category' do
-      get url, headers: auth_header(user)
-      expected_category = category.as_json(only: %i[id name])
-      expect(body_json['category']).to eq expected_category
-    end
-
-    it 'returns success status' do
-      get url, headers: auth_header(user)
-      expect(response).to have_http_status(:ok)
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 1 } do
+        before { get url, headers: auth_header(user), params: order_params }
+      end
     end
   end
 
@@ -113,7 +118,7 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
         end.to change(Category, :count).by(1)
       end
 
-      it 'return last added Category' do
+      it 'returns last added Category' do
         post url, headers: auth_header(user), params: category_params
         expected_category = Category.last.as_json(only: %i[id name])
         expect(body_json['category']).to eq expected_category
@@ -148,12 +153,28 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
     end
   end
 
+  context 'GET /categories/:id' do
+    let(:category) { create(:category) }
+    let(:url) { "/admin/v1/categories/#{category.id}" }
+
+    it 'returns requested Category' do
+      get url, headers: auth_header(user)
+      expected_category = category.as_json(only: %i[id name])
+      expect(body_json['category']).to eq expected_category
+    end
+
+    it 'returns success status' do
+      get url, headers: auth_header(user)
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   context 'PATCH /categories/:id' do
     let(:category) { create(:category) }
     let(:url) { "/admin/v1/categories/#{category.id}" }
 
     context 'with valid params' do
-      let(:new_name) { 'My new category' }
+      let(:new_name) { 'My new Category' }
       let(:category_params) { { category: { name: new_name } }.to_json }
 
       it 'updates Category' do
@@ -162,7 +183,7 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
         expect(category.name).to eq new_name
       end
 
-      it 'returns updated category' do
+      it 'returns updated Category' do
         patch url, headers: auth_header(user), params: category_params
         category.reload
         expected_category = category.as_json(only: %i[id name])
@@ -176,7 +197,7 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
     end
 
     context 'with invalid params' do
-      let(:category_invalid_params) do
+      let(:category_invalid_params) do 
         { category: attributes_for(:category, name: nil) }.to_json
       end
 
@@ -222,9 +243,16 @@ RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
     it 'removes all associated product categories' do
       product_categories = create_list(:product_category, 3, category:)
       delete url, headers: auth_header(user)
-
       expected_product_categories = ProductCategory.where(id: product_categories.map(&:id))
-      expect(expected_product_categories).to eq []
+      expect(expected_product_categories.count).to eq 0
+    end
+
+    it 'does not remove unassociated product categories' do
+      product_categories = create_list(:product_category, 3)
+      delete url, headers: auth_header(user)
+      present_product_categories_ids = product_categories.map(&:id)
+      expected_product_categories = ProductCategory.where(id: present_product_categories_ids)
+      expect(expected_product_categories.ids).to contain_exactly(*present_product_categories_ids)
     end
   end
 end
